@@ -1,24 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import { Canvas} from 'react-three-fiber'
+
+
+function Ball(){
+return(
+<mesh position={[0,10,0]}>
+<sphereBufferGeometry  args={[1.5,50,100]}   />
+<meshStandardMaterial  color="hotpink"/>
+</mesh>
+)
+}
+
+function Cube(){
+  return(
+  <mesh position={[0,0,0]}>
+  <boxBufferGeometry  agrs={[1,1,1]}  />
+  <meshStandardMaterial />
+  </mesh>
+  )
+  }
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<>
+<Canvas camera={{position:[0,40,10],fov:10}} style={{height:"100vh"}}>
+  <ambientLight/>
+<Ball/>
+<Cube />
+</Canvas>
+</>
   );
 }
 
