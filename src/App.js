@@ -13,8 +13,18 @@ return(
 )
 }
 
+function Car2(){
+  return(
+    <mesh position={[0,0.5,0]}>
+    <boxBufferGeometry  args={[1,1,3]}  />
+    <meshStandardMaterial color="blue"/>
+    </mesh>
+    )
+}
+
 function Car(){
 let [keydown,setKeydown]=useState("")
+let [angle,setAngle]=useState(0)
 
 
   const mesh=useRef(null)
@@ -26,11 +36,39 @@ let [keydown,setKeydown]=useState("")
     setKeydown("")
   })
 useFrame(()=>{
+
   if(keydown==="KeyW"){
-    mesh.current.position.z +=0.1
+    console.log("angle:",angle)
+    let zDistance=0.1*Math.cos(angle/360*2*Math.PI)
+    let xDistance=0.1*Math.sin(angle/360*-2*Math.PI)
+    mesh.current.position.z +=zDistance
+    mesh.current.position.x +=xDistance
   }
   if(keydown==="KeyS"){
-    mesh.current.position.z -=0.1
+    let zDistance=-0.1*Math.cos(angle/360*2*Math.PI)
+    let xDistance=0.1*Math.sin(angle/360*2*Math.PI)
+    mesh.current.position.z +=zDistance
+    mesh.current.position.x +=xDistance
+  }
+  if(keydown==="KeyA"){
+    mesh.current.rotation.y +=0.05
+
+let angle=Math.abs(mesh.current.rotation.y)/6.3
+  while (angle > 1) {
+    angle=angle-1
+  }
+angle=angle*360
+    setAngle(angle)
+  }
+  if(keydown==="KeyD"){
+    mesh.current.rotation.y -=0.05
+
+    let angle=Math.abs(mesh.current.rotation.y)/6.3
+    while (angle > 1) {
+      angle=angle-1
+    }
+  angle=angle*360
+      setAngle(angle)
   }
 })
 
@@ -78,6 +116,7 @@ function App() {
   <ambientLight/>
 {/* <Ball/> */}
 <Car />
+<Car2 />
 <Ground/>
 </Canvas>
 </>
