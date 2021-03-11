@@ -23,34 +23,46 @@ function Car2(){
 }
 
 function Car(){
-let [keydown,setKeydown]=useState("")
+let [ForwardKeydown,setForwardKeydown]=useState("")
+let [turnKeydown,setTurnKeydown]=useState("")
 let [angle,setAngle]=useState(0)
 
 
   const mesh=useRef(null)
 
   document.addEventListener("keydown", (event)=>{
-    setKeydown(event.code)
+    if(event.code==="KeyW" || event.code==="KeyS"){
+      setForwardKeydown(event.code)
+    }
+    if(event.code==="KeyA" || event.code==="KeyD"){
+      setTurnKeydown(event.code)
+    }
   })
   document.addEventListener("keyup", (event)=>{
-    setKeydown("")
+    if(event.code==="KeyW" || event.code==="KeyS"){
+      setForwardKeydown("")
+    }
+    if(event.code==="KeyA" || event.code==="KeyD"){
+      setTurnKeydown("")
+    }
+
   })
 useFrame(()=>{
 
-  if(keydown==="KeyW"){
+  if(ForwardKeydown==="KeyW"){
     console.log("angle:",angle)
     let zDistance=0.1*Math.cos(angle/360*2*Math.PI)
     let xDistance=0.1*Math.sin(angle/360*-2*Math.PI)
     mesh.current.position.z +=zDistance
     mesh.current.position.x +=xDistance
   }
-  if(keydown==="KeyS"){
+  if(ForwardKeydown==="KeyS"){
     let zDistance=-0.1*Math.cos(angle/360*2*Math.PI)
     let xDistance=0.1*Math.sin(angle/360*2*Math.PI)
     mesh.current.position.z +=zDistance
     mesh.current.position.x +=xDistance
   }
-  if(keydown==="KeyA"){
+  if(turnKeydown==="KeyA"){
     mesh.current.rotation.y +=0.05
 
 let angle=Math.abs(mesh.current.rotation.y)/6.3
@@ -60,7 +72,7 @@ let angle=Math.abs(mesh.current.rotation.y)/6.3
 angle=angle*360
     setAngle(angle)
   }
-  if(keydown==="KeyD"){
+  if(turnKeydown==="KeyD"){
     mesh.current.rotation.y -=0.05
 
     let angle=Math.abs(mesh.current.rotation.y)/6.3
