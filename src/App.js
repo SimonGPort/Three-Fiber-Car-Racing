@@ -46,7 +46,7 @@ function App() {
 
   return (
 <>
-<Canvas camera={{position:[0,1000,100],fov:1000}} style={{height:"100vh"}}>
+<Canvas camera={{position:[0,100,100],fov:10}} style={{height:"100vh"}}>
   {/* <OrientationCamera /> */}
   <ambientLight/>
 <Car />

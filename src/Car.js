@@ -14,7 +14,7 @@ export default function Car() {
         new GLTFLoader().load('/car3d/scene.gltf', setModel)
         // console.log("test", model)
     })
-        return model ? <primitive object={model.scene} /> : null
+        return model ? <primitive object={model.scene} scale={[0.01,0.01,0.01]}/> : null
     }
 
 
