@@ -35,10 +35,8 @@ export default function Car() {
     useFrame(() => {
 
         if (ForwardKeydown === "KeyW") {
-            console.log("angle:", angle)
             let zDistance = 0.1 * Math.cos(angle / 360 * 2 * Math.PI)
             let xDistance = 0.1 * Math.sin(angle / 360 * -2 * Math.PI)
-            console.log(mesh)
             mesh.current.position.z += zDistance
             mesh.current.position.x += xDistance
         }
@@ -50,12 +48,14 @@ export default function Car() {
         }
         if (turnKeydown === "KeyA") {
             mesh.current.rotation.y += 0.05
-
             let angle = Math.abs(mesh.current.rotation.y) / 6.3
             while (angle > 1) {
                 angle = angle - 1
             }
             angle = angle * 360
+            if(mesh.current.rotation.y >0){
+                angle=360-angle
+            }
             setAngle(angle)
         }
         if (turnKeydown === "KeyD") {
@@ -66,6 +66,9 @@ export default function Car() {
                 angle = angle - 1
             }
             angle = angle * 360
+            if(mesh.current.rotation.y >0){
+                angle=360-angle
+            }
             setAngle(angle)
         }
     })
