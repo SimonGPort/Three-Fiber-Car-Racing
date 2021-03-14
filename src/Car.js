@@ -11,7 +11,7 @@ export default function Car() {
 
     useEffect(() => {
         new GLTFLoader().load('/car3d/scene.gltf', setModel)
-    })
+    },[])
 
     const mesh = useRef(null)
 
