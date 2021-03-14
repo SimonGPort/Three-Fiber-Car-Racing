@@ -6,17 +6,12 @@ export default function Car() {
     let [ForwardKeydown, setForwardKeydown] = useState("")
     let [turnKeydown, setTurnKeydown] = useState("")
     let [angle, setAngle] = useState(0)
-
-
-    const RedCar=()=>{
     let [model, setModel] = useState()
+
+
     useEffect(() => {
         new GLTFLoader().load('/car3d/scene.gltf', setModel)
-        // console.log("test", model)
     })
-        return model ? <primitive object={model.scene} scale={[0.01,0.01,0.01]}/> : null
-    }
-
 
     const mesh = useRef(null)
 
@@ -43,6 +38,7 @@ export default function Car() {
             console.log("angle:", angle)
             let zDistance = 0.1 * Math.cos(angle / 360 * 2 * Math.PI)
             let xDistance = 0.1 * Math.sin(angle / 360 * -2 * Math.PI)
+            console.log(mesh)
             mesh.current.position.z += zDistance
             mesh.current.position.x += xDistance
         }
@@ -75,10 +71,10 @@ export default function Car() {
     })
 
     return (
-        <mesh position={[0, 0.5, 0]} ref={mesh}>
-            <boxBufferGeometry args={[1, 1, 3]} />
-            <meshStandardMaterial color="hotpink" />
-            <RedCar />
+
+        <mesh >
+            { model ? <group ref={mesh} ><primitive object={model.scene} scale={[0.01,0.01,0.01]}  position={[0, 0.5, 0]} /></group> : null}
         </mesh>
+
     )
 }
